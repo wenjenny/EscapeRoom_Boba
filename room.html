@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Escape Room: Boba Shop Edition</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <style>
+        * {box-sizing: border-box}
+        body {font-family: Verdana, sans-serif; margin:0; height:100%}
+        .mySlides {display: none}
+        rect {fill:rgb(255,0,255);stroke-width:3;stroke:rgb(255,255,255);opacity:0.5}
+
+        .slideshow-container {
+            max-height: 100%;
+            position: relative;
+            margin: auto;
+        }
+
+        .img1 {
+            background: url("pics/wall1.jpg") no-repeat fixed 50%;
+            background-size: cover;
+        }
+
+        .img2 {
+            background: url("pics/wall2.jpg") no-repeat fixed 50%;
+            background-size: cover;
+        }
+
+        .img3 {
+            background: url("pics/wall3.jpg") no-repeat fixed 50%;
+            background-size: cover;
+        }
+
+        .img4 {
+            background: url("pics/wall4.jpg") no-repeat fixed 50%;
+            background-size: cover;
+        }
+
+        .content {
+            min-height: 100vh
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            /* width: 80%; */
+        }
+
+        .modal-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            height: 70vh;
+        }
+
+        .pocket-image {
+            margin: auto;
+            height: 20vh;
+        }
+
+        #puzzle4-image {
+            display: block;
+            height: 500px;
+        }
+
+        .puzzle5-image {
+            width: 15vw;
+            position: absolute;
+            /* margin: auto; */
+            /* display: inline-block; */
+        }
+
+        /* PICTURE HERE */
+        #ppocket_cup, #ppocket_pizza, #ppocket_book, #ppocket_fruit, #ppocket_pencil, #pi6, #pi7, #pi8, #pi9, #pi10, #pi11, #pi12, #pi13, #pi14, #pi15, #pi16, #pi17, #pip1, #pip2, #pip3, #pip4 {
+            position: absolute;
+            height: 200px;
+        }
+
+        #circle {
+            position: absolute;
+            display: inline-block;
+            bottom: 20%;
+            left: 48%;
+            width: 10vw;
+            height: 10vh;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        #triangle {
+            position: absolute;
+            display: inline-block;
+            top: 20%;
+            left: 48%;
+            width: 10vw;
+            height: 10vh;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        #rectangle {
+            position: absolute;
+            display: inline-block;
+            bottom: 20%;
+            right: 48%;
+            width: 10vw;
+            height: 10vh;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        #star {
+            position: absolute;
+            display: inline-block;
+            top: 20%;
+            right: 48%;
+            width: 10vw;
+            height: 10vh;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        #hexagon {
+            position: absolute;
+            display: inline-block;
+            bottom: 50%;
+            left: 50%;
+            width: 10vw;
+            height: 10vh;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="slideshow-container">
+
+        <div class="mySlides fade img1">
+            <div class="content"></div>
+            <!-- story & rules modal -->
+            <div id="myModalStory" class="modal" style="display:block">
+                <div class="modal-content">
+                    <p> Dear Loyal Listener... </p>
+                    <p> Congratulations on finally achieving your life's Plan A: opening an overpriced boba shop at 
+                        the top of a mountain! We here at <i>The Curious Cases of Rutherford & Fry</i> applaud your ingenuity. </p>
+                    <p> It has come to our attention that international fans such as yourself are deeply disappointed 
+                        about not having the chance to find a golden ticket in a copy of <i>Rutherford & Fry's Complete 
+                        Guide to Absolutely Everything (Abridged)</i>. </p>
+                    <p> We wish we could meet you all, but unfortunately our time is finite. So, we have decided 
+                        to put our most loyal international fans to the test to see who is worthy of being graced 
+                        by our presence. We have filled your workplace with puzzles tailored to your knowledge and 
+                        skill set. If you solve all of them and find the golden ticket within one hour, you will be 
+                        invited to an exclusive meet-and-greet for only our brightest listeners!* </p>
+                    <p> Your time starts now. Best of luck. </p>
+                        
+                    <p> Signed, </p>
+                    <p> Hannah Fry & Adam Rutherford </p> <br>
+                    <p style="font-size:2px"> *please note that this gathering will only take place if or when Connie Lu becomes President of the United States of America. </p>
+                    <p style="color:gray"> Created by: Jenny Wen, Hrishika Basava, Connie Lu </p>
+
+                </div>
+            </div>
+
+            <!-- <img src="pics/frame_horiz.png" style="position: absolute; top: 20%; left: 30%; height:25%" onclick="p1()"> -->
+            <img src="pics/1.jpg" style="position: absolute; top: 20%; left: 20%; height:40%" onclick="p1()">
+            <div id="puzzle1" class="modal">
+                <div class="modal-content">
+                    <img src="puzzles/puzzle1.png" class="modal-image"></img> 
+                    <p style="text-align:center">
+                        idk the answer, 
+                        <a onclick="puzzle1q()">but I'll just guess</a>
+                    </p>
+                </div>
+            </div>
+
+            <img src="objects/ice.png" style="position: absolute; bottom: 10%; left: 35%; display: none;" height="5%" id="post1" ondblclick="pickup('post1')"></img> 
+
+            <!-- PICTURE HERE -->
+            <!-- objects in room -->
+
+            <img src="objects/door.jpg" style="position: absolute; top: 40%; left: 70%" height="50%" onclick="door()" ondblclick="alert('You really thought ...?')"/>
+            <!-- <img src="objects/window.png" style="position: absolute; top: 20%; left: 30%" height="25%" ondblclick="alert('You really thought ...?')"/> -->
+            <img src="objects/window.png" style="position: absolute; top: 20%; left: 50%" height="25%" ondblclick="alert('You really thought ...?')"/>
+        </div>
+
+        <div class="mySlides fade img2">
+            <div class="content"></div>
+            <img src="pics/2.jpg" style="position: absolute; top: 20%; left: 10%; height:25%" onclick="p3()">
+            <div id="puzzle3" class="modal">
+                <div class="modal-content">
+                    <img src="puzzles/puzzle3.jpg" class="modal-image" style="height:20vh"></img>
+                    <p style="text-align:center">
+                        <a onclick="puzzle3q()">I know the answer now</a>
+                    </p>
+                </div>
+            </div>
+
+            <img src="objects/ledge.png"       style="position: absolute; top: 40%;" width="100%"></img>
+            <img src="objects/lav_syrup.png"   style="position: absolute; top: 30%; left: 35%" height="25%" id="test9"  ondblclick="pickup('test9')"></img>
+            <img src="objects/mango_syrup.png" style="position: absolute; top: 30%; left: 40%" height="25%" id="test10" ondblclick="pickup('test10')"></img>
+            <img src="objects/straw_syrup.png" style="position: absolute; top: 30%; left: 45%" height="25%" id="test11" ondblclick="pickup('test11')"></img>
+            <img src="objects/black_tea.png"   style="position: absolute; top: 30%; left: 52%" height="25%" id="test6"  ondblclick="pickup('test6')"></img>
+            <img src="objects/green_tea.png"   style="position: absolute; top: 30%; left: 60%" height="25%" id="test7"  ondblclick="pickup('test7')"></img>
+            <img src="objects/boba.png"        style="position: absolute; top: 30%; left: 68%" height="25%" id="test8"  ondblclick="pickup('test8')"></img>
+            <img src="objects/milk.png"        style="position: absolute; top: 30%; left: 80%" height="25%" id="test12" ondblclick="pickup('test12')"></img>
+
+            <img src="objects/sugar.png" style="position: absolute; top: 30%; left: 20%; display: none;" height="25%" id="post3" ondblclick="pickup('post3')"></img>
+
+        </div>
+
+        <div class="mySlides fade img3">
+            <div class="content"></div>
+            <img src="pics/3.jpg" style="position: absolute; top: 10%; right: 15%; height:25%" onclick="p2()">
+            <div id="puzzle2" class="modal">
+                <div class="modal-content">
+                    <img src="puzzles/puzzle2.jpg" class="modal-image" style="height:20vh"></img>
+                    <p style="text-align:center">
+                        <a onclick="puzzle2q()">I know the answer now</a>
+                    </p>
+                </div>
+            </div>
+            <img src="objects/menu.jpg" style="position: absolute; top: 15%; left: 10%" height="50%"></img>
+
+            <img src="objects/ledge.png"       style="position: absolute; top: 300px; right: 0px" width="60%"></img>
+
+            <img src="objects/pencil_cup.png"   style="position: absolute; top: 250px; right: 200px" height="150px"></img>
+            <img src="objects/pen_blue_cut.png" style="position: absolute; top: 250px; right: 215px" height="60px"  id="test13" ondblclick="pickup('test13')"></img>
+            <img src="objects/pen_red_cut.png"  style="position: absolute; top: 250px; right: 230px" height="60px"  id="test14" ondblclick="pickup('test14')"></img>
+            <img src="objects/pencil_cut.png"   style="position: absolute; top: 260px; right: 220px" height="50px"  id="pencil" ondblclick="pickup('pencil')"></img>
+            
+            <img src="objects/fruit_bowl.png"  style="position: absolute; top: 250px; right: 500px" height="150px"></img>
+            <img src="objects/cherry.png"      style="position: absolute; top: 240px; right: 630px" height="50px"  id="test15" ondblclick="pickup('test15')"></img>
+            <img src="objects/strawberry.png"  style="position: absolute; top: 255px; right: 600px" height="40px"  id="test16" ondblclick="pickup('test16')"></img>
+            <img src="objects/blueberry.png"   style="position: absolute; top: 275px; right: 570px" height="20px"  id="test17" ondblclick="pickup('test17')"></img>
+            <img src="objects/starfruit.png"   style="position: absolute; top: 250px; right: 540px" height="40px"  id="fruit"  ondblclick="pickup('fruit')"></img>
+            <img src="objects/lemon.png"       style="position: absolute; top: 260px; right: 540px; display: none;" height="40px"  id="post4"  ondblclick="pickup('post4')"></img>
+    
+            <img src="objects/chair.png"       style="position: absolute; top: 50%; left: 30%" height="50%"></img>
+            <img src="objects/chair.png"       style="position: absolute; top: 50%; left: 45%" height="50%"></img>
+            <img src="objects/chair.png"       style="position: absolute; top: 50%; left: 60%" height="50%"></img>
+            <img src="objects/chair.png"       style="position: absolute; top: 50%; left: 75%" height="50%"></img>
+
+        </div>
+
+        <div class="mySlides fade img4">
+            <div class="content"></div>
+
+            <!-- puzzle 4 modal -->
+            <img src="pics/4.jpg" style="position: absolute; top: 20%; left: 10%; height:50%" onclick="p4()">
+
+            <!-- js code to check that a specific image is in the right div: 
+                div1.children.length == 1 && div1.children[0].id == 'id' -->
+            <!-- IDEA #3
+                not drag & drop, just make it draggable - then check whether the position is correct -->
+            <div id="puzzle4" class="modal">
+                <div class="modal-content">
+                    <!-- puzzle -->
+                    <img src="puzzles/puzzle4.png" id="puzzle4-image"></img> 
+
+                    <!-- PICTURE HERE -->
+                    <!-- pocket items -->
+                    <img src="objects/cup.png"         style="display:none;height:160px" id="ppocket_cup"    ondblclick="remove('pocket_cup')"></img>
+                    <img src="objects/pizza.png"       style="display:none;height:160px" id="ppocket_pizza"  ondblclick="remove('pocket_pizza')"></img>
+                    <img src="objects/book_cover.png"  style="display:none;height:160px" id="ppocket_book"   ondblclick="remove('pocket_book')"></img>
+                    <img src="objects/starfruit.png"   style="display:none;height:125px" id="ppocket_fruit"  ondblclick="remove('pocket_fruit')"></img>
+                    <img src="objects/pencil.png"      style="display:none;" id="ppocket_pencil" ondblclick="remove('pocket_pencil')"></img>
+                    <img src="objects/black_tea.png"   style="display:none;" id="pi6"            ondblclick="remove('i6')"></img>
+                    <img src="objects/green_tea.png"   style="display:none;" id="pi7"            ondblclick="remove('i7')"></img>
+                    <img src="objects/boba.png"        style="display:none;" id="pi8"            ondblclick="remove('i8')"></img>
+                    <img src="objects/lav_syrup.png"   style="display:none;" id="pi9"            ondblclick="remove('i9')"></img>
+                    <img src="objects/mango_syrup.png" style="display:none;" id="pi10"           ondblclick="remove('i10')"></img>
+                    <img src="objects/straw_syrup.png" style="display:none;" id="pi11"           ondblclick="remove('i11')"></img>
+                    <img src="objects/milk.png"        style="display:none;" id="pi12"           ondblclick="remove('i12')"></img>
+                    <img src="objects/pen_blue.png"    style="display:none;" id="pi13"           ondblclick="remove('i13')"></img>
+                    <img src="objects/pen_red.png"     style="display:none;" id="pi14"           ondblclick="remove('i14')"></img>
+                    <img src="objects/cherry.png"      style="display:none;" id="pi15"           ondblclick="remove('i15')"></img>
+                    <img src="objects/strawberry.png"  style="display:none;" id="pi16"           ondblclick="remove('i16')"></img>
+                    <img src="objects/blueberry.png"   style="display:none;" id="pi17"           ondblclick="remove('i17')"></img>
+                    <img src="objects/ice.png"         style="display:none;" id="pip1"           ondblclick="remove('ip1')"></img>
+                    <img src="objects/tea.png"         style="display:none;" id="pip2"           ondblclick="remove('ip2')"></img>
+                    <img src="objects/sugar.png"       style="display:none;" id="pip3"           ondblclick="remove('ip3')"></img>
+                    <img src="objects/lemon.png"       style="display:none;" id="pip4"           ondblclick="remove('ip4')"></img>
+
+                    <!-- <div id="circle" ondrop="drop(event)" ondragover = "allowDrop(event)"></div>
+                    <div id="triangle" ondrop="drop(event)" ondragover = "allowDrop(event)"></div>
+                    <div id="rectangle" ondrop="drop(event)" ondragover = "allowDrop(event)"></div>
+                    <div id="star" ondrop="drop(event)" ondragover = "allowDrop(event)"></div>
+                    <div id="hexagon" ondrop="drop(event)" ondragover = "allowDrop(event)"></div> -->
+                    
+                    <!-- pocket items -->
+                    <!-- <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="ppocket_cup"    ondblclick="remove('pocket_cup')" oncontextmenu="p4rm('pocket_cup')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="ppocket_pizza"  ondblclick="remove('pocket_pizza')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="ppocket_book"   ondblclick="remove('pocket_book')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="ppocket_fruit"  ondblclick="remove('pocket_fruit')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="ppocket_pencil" ondblclick="remove('pocket_pencil')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pi6" ondblclick="remove('i6')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pi7" ondblclick="remove('i7')"></img>
+                    <img src="pics/puzzle_leaf.jpg" style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pi8" ondblclick="remove('i8')"></img>
+                    <img src="pics/equation.jpg"    style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pip1" ondblclick="remove('ip1')"></img>
+                    <img src="pics/equation.jpg"    style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pip2" ondblclick="remove('ip2')"></img>
+                    <img src="pics/equation.jpg"    style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pip3" ondblclick="remove('ip3')"></img>
+                    <img src="pics/equation.jpg"    style="display:none;" class="pocket-image" draggable="true" ondragstart="drag(event)" id="pip4" ondblclick="remove('ip4')"></img> -->
+
+                    <p onclick="p4check()"> yay or nay </p>
+
+                    <!-- <div ondrop="drop(event)" ondragover="allowDrop(event)"> -->
+                        <!-- <svg width="100px" height="100px"><circle cx="50" cy="50" r="48" stroke="black" fill="transparent" stroke-width="1"/></svg> -->
+                    <!-- </div> -->
+                    <!-- <div ondrop="drop(event)" ondragover="allowDrop(event)" style="display: inline-block;">
+                        <svg width="100px" height="100px"><rect width="50%" height="100%" style="fill:transparent;stroke-width:1;stroke:black;opacity:1.0"/></svg>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" style="display: inline-block;">
+                        <svg width="100px" height="100px">
+                            <polygon points="50 40 
+                                                55 60 
+                                                70 60 
+                                                60 70 
+                                                65 85 
+                                                50 75 
+                                                35 85 
+                                                40 70 
+                                                30 60 
+                                                45 60"
+                            stroke="black" fill="transparent" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" style="display: inline-block;">
+                        <svg width="100px" height="100px">
+                            <polygon points="70 60 
+                                                50 30 
+                                                30 60"
+                            stroke="black" fill="transparent" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" style="display: inline-block;">
+                        <svg width="100px" height="100px">
+                            <polygon points="60,30 
+                                                45,56 
+                                                15,56 
+                                                0,30 
+                                                15,4 
+                                                45,4"
+                            stroke="black" fill="transparent" stroke-width="1"/>
+                        </svg>
+                    </div> -->
+                    
+                </div>
+            </div>
+
+            <!-- puzzle 5 -->
+            <img src="pics/5.jpg" style="position: absolute; top: 20%; right: 15%; height:25%" onclick="p5()">
+            <div id="puzzle5" class="modal">
+                <div class="modal-content">
+                    <div style="height:50vh"></div>
+                    <img src="objects/ice.png"  class="puzzle5-image" style="left:12.5%; top:20%"></img>
+                    <img src="objects/tea.png"  class="puzzle5-image" style="left:32.5%; top:20%"></img>
+                    <img src="objects/sugar.png" class="puzzle5-image" style="left:52.5%; top:20%"></img>
+                    <img src="objects/lemon.png" class="puzzle5-image" style="left:72.5%; top:20%"></img>
+                    <form id="form" onsubmit="return false;">
+                        <input style="position:absolute; top:52%; left:15%; width:10%;" type="text" id="ice"/>
+                        <input style="position:absolute; top:52%; left:35%; width:10%;" type="text" id="tea"/>
+                        <input style="position:absolute; top:52%; left:55%; width:10%;" type="text" id="sugar"/>
+                        <input style="position:absolute; top:52%; left:75%; width:10%;" type="text" id="lemon"/>
+                        <input style="position:absolute; top:60%; left:40%; width:20%;" type="submit" onclick="puzzle5q();" />
+                    </form>
+                </div>
+            </div>
+
+            <img src="objects/table.png" style="position: absolute; top: 300px; left: 400px" height="50%"></img>
+            <img src="objects/pizza.png" style="position: absolute; top: 375px; left: 560px" height="10%" id="pizza"  ondblclick="pickup('pizza')"></img>
+            <img src="objects/cup.png"   style="position: absolute; top: 325px; left: 500px" height="15%" id="cup"    ondblclick="pickup('cup')"></img>
+            <img src="objects/book.png"  style="position: absolute; top: 375px; left: 700px" height="10%" id="book"   ondblclick="pickup('book')"></img>
+            <img src="objects/tea.png"   style="position: absolute; top: 360px; left: 700px; display: none;" height="5%" id="post2" ondblclick="pickup('post2')"></img>
+
+        </div>
+        
+        <div id="pockets" class="modal">
+            <div class="modal-content">
+                <!-- PICTURE HERE -->
+                <p id="yahaha"> Yahaha! You found me! </p>
+                <img src="objects/cup.png"         style="display:none;" class="pocket-image" id="pocket_cup"    ondblclick="remove('pocket_cup')"></img>
+                <img src="objects/pizza.png"       style="display:none;" class="pocket-image" id="pocket_pizza"  ondblclick="remove('pocket_pizza')"></img>
+                <img src="objects/book.png"        style="display:none;" class="pocket-image" id="pocket_book"   ondblclick="remove('pocket_book')"></img>
+                <img src="objects/starfruit.png"   style="display:none;" class="pocket-image" id="pocket_fruit"  ondblclick="remove('pocket_fruit')"></img>
+                <img src="objects/pencil.png"      style="display:none;" class="pocket-image" id="pocket_pencil" ondblclick="remove('pocket_pencil')"></img>
+                <img src="objects/black_tea.png"   style="display:none;" class="pocket-image" id="i6"            ondblclick="remove('i6')"></img>
+                <img src="objects/green_tea.png"   style="display:none;" class="pocket-image" id="i7"            ondblclick="remove('i7')"></img>
+                <img src="objects/boba.png"        style="display:none;" class="pocket-image" id="i8"            ondblclick="remove('i8')"></img>
+                <img src="objects/lav_syrup.png"   style="display:none;" class="pocket-image" id="i9"            ondblclick="remove('i9')"></img>
+                <img src="objects/mango_syrup.png" style="display:none;" class="pocket-image" id="i10"           ondblclick="remove('i10')"></img>
+                <img src="objects/straw_syrup.png" style="display:none;" class="pocket-image" id="i11"           ondblclick="remove('i11')"></img>
+                <img src="objects/milk.png"        style="display:none;" class="pocket-image" id="i12"           ondblclick="remove('i12')"></img>
+                <img src="objects/pen_blue.png"    style="display:none;" class="pocket-image" id="i13"           ondblclick="remove('i13')"></img>
+                <img src="objects/pen_red.png"     style="display:none;" class="pocket-image" id="i14"           ondblclick="remove('i14')"></img>
+                <img src="objects/cherry.png"      style="display:none;" class="pocket-image" id="i15"           ondblclick="remove('i15')"></img>
+                <img src="objects/strawberry.png"  style="display:none;" class="pocket-image" id="i16"           ondblclick="remove('i16')"></img>
+                <img src="objects/blueberry.png"   style="display:none;" class="pocket-image" id="i17"           ondblclick="remove('i17')"></img>
+                <img src="objects/ice.png"         style="display:none;" class="pocket-image" id="ip1"           ondblclick="remove('ip1')"></img>
+                <img src="objects/tea.png"         style="display:none;" class="pocket-image" id="ip2"           ondblclick="remove('ip2')"></img>
+                <img src="objects/sugar.png"       style="display:none;" class="pocket-image" id="ip3"           ondblclick="remove('ip3')"></img>
+                <img src="objects/lemon.png"       style="display:none;" class="pocket-image" id="ip4"           ondblclick="remove('ip4')"></img>
+            </div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+        }
+
+        var modalStory = document.getElementById("myModalStory");
+        var pockets = document.getElementById("pockets");
+        var puzzle1 = document.getElementById("puzzle1");
+        var puzzle2 = document.getElementById("puzzle2");
+        var puzzle3 = document.getElementById("puzzle3");
+        var puzzle4 = document.getElementById("puzzle4");
+        var puzzle5 = document.getElementById("puzzle5");
+
+        function p1() {
+            puzzle1.style.display = "block";
+        }
+        var p1correct = false;
+        function puzzle1q() {
+            if (p1correct) alert("No use coming back here");
+            else {
+                p1ans = prompt("Answer here: ");
+                if (p1ans.toLowerCase() == "idk") {
+                    p1correct = true;
+                    post1.style.display = "block";
+                    alert("Something just fell from the ceiling!");
+                    alert("2");
+                }
+                else alert("Try again");
+            }
+        }
+
+        function p2() {
+            puzzle2.style.display = "block";
+        }
+        var p2correct = false;
+        function puzzle2q() {
+            if (p2correct) alert("No use coming back here");
+            else {
+                p2ans = prompt("Answer here: ");
+                if (p2ans.toLowerCase() == "tea") {
+                    p2correct = true;
+                    post2.style.display = "block";
+                    alert("Something just fell from the ceiling!");
+                    alert("4");
+                }
+                else alert("Try again");
+            }
+        }
+
+        function p3() {
+            puzzle3.style.display = "block";
+        }
+        var p3correct = false;
+        function puzzle3q() {
+            if (p3correct) alert("No use coming back here");
+            else {
+                p3ans = prompt("Answer here: ");
+                if (p3ans == "-10.55" || p3ans == "-$10.55") {
+                    p3correct = true;
+                    post3.style.display = "block";
+                    alert("Something just fell from the ceiling!");
+                    alert("1");
+                }
+                else alert("Try again");
+            }
+        }
+
+        // PICTURE HERE
+
+        // puzzle starts at (120, 20) and is 500 px tall, 812 px wide
+        // all wrt to puzzle corner
+        // cup coordinates:    320, 50  and 480, 200
+        // pizza coordinates:   30, 50  and 280, 425
+        // book coordinates:   545, 70  and 775, 430
+        // fruit coordinates:  300, 290 and 425, 410
+        // pencil coordinates: 454, 285 and 490, 315
+
+        var margin = 50;
+        var l = 20;
+        var t = 120;
+
+        var circle_correct, triangle_correct, rect_correct, star_correct, hexagon_correct;
+        var pi6_correct, pi7_correct, pi8_correct, pi9_correct, pi10_correct, pi11_correct, pi12_correct;
+        var pi13_correct, pi14_correct, pi15_correct, pi16_correct, pi17_correct;
+        var pip1_correct, pip2_correct, pip3_correct, pip4_correct;
+
+        function p4() {
+            if (first_pocket || !discovered_pocket) { // pocket hasn't been discovered yet
+                alert("Something must be discovered first.");
+            } else {
+                puzzle4.style.display = "block";
+            }
+        }
+        var p4correct = false;
+        function p4check() {
+            if (p4correct) alert("No point in doing it again");
+            else {
+                circle_correct   = (ppocket_cup.offsetLeft > 320 && ppocket_cup.offsetLeft < 420) && Math.abs(ppocket_cup.offsetTop - 50 - t) < margin;
+                triangle_correct = (ppocket_pizza.offsetLeft > 30 && ppocket_pizza.offsetLeft < 180) 
+                                    && (ppocket_pizza.offsetTop > 50 && ppocket_pizza.offsetTop < 400);
+                rect_correct     = Math.abs(ppocket_book.offsetLeft - 620) < 80   && Math.abs(ppocket_book.offsetTop - 230) < 160;
+                star_correct     = Math.abs(ppocket_fruit.offsetLeft - 300 - l) < margin  && Math.abs(ppocket_fruit.offsetTop - 290 - t) < margin;
+                hexagon_correct  = Math.abs(ppocket_pencil.offsetLeft - 454 - l) < margin && Math.abs(ppocket_pencil.offsetTop - 285 - t) < margin;
+                pi6_correct = pi6.offsetTop > 620 ||  pi6.offsetLeft > 832 || pi6.style.display == "none";
+                pi7_correct = pi7.offsetTop > 620 ||  pi7.offsetLeft > 832 || pi7.style.display == "none";
+                pi8_correct = pi8.offsetTop > 620 ||  pi8.offsetLeft > 832 || pi8.style.display == "none";
+                pi9_correct = pi9.offsetTop > 620 ||  pi9.offsetLeft > 832 || pi9.style.display == "none";
+                pi10_correct = pi10.offsetTop > 620 ||  pi10.offsetLeft > 832 || pi10.style.display == "none";
+                pi11_correct = pi11.offsetTop > 620 ||  pi11.offsetLeft > 832 || pi11.style.display == "none";
+                pi12_correct = pi12.offsetTop > 620 ||  pi12.offsetLeft > 832 || pi12.style.display == "none";
+                pi13_correct = pi13.offsetTop > 620 ||  pi13.offsetLeft > 832 || pi13.style.display == "none";
+                pi14_correct = pi14.offsetTop > 620 ||  pi14.offsetLeft > 832 || pi14.style.display == "none";
+                pi15_correct = pi15.offsetTop > 620 ||  pi15.offsetLeft > 832 || pi15.style.display == "none";
+                pi16_correct = pi16.offsetTop > 620 ||  pi16.offsetLeft > 832 || pi16.style.display == "none";
+                pi17_correct = pi17.offsetTop > 620 ||  pi17.offsetLeft > 832 || pi17.style.display == "none";
+                pip1_correct = pip1.offsetTop > 620 || pip1.offsetLeft > 832 || pip1.style.display == "none";
+                pip2_correct = pip2.offsetTop > 620 || pip2.offsetLeft > 832 || pip2.style.display == "none";
+                pip3_correct = pip3.offsetTop > 620 || pip3.offsetLeft > 832 || pip3.style.display == "none";
+                pip4_correct = pip4.offsetTop > 620 || pip4.offsetLeft > 832 || pip4.style.display == "none";
+
+                // circle_correct = (circle.children.length == 1 && circle.children[0].id == 'ppocket_cup');
+                // triangle_correct = (triangle.children.length == 1 && triangle.children[0].id == 'pizza');
+                // rect_correct = (rectangle.children.length == 1 && rectangle.children[0].id == 'book');
+                // star_correct = (star.children.length == 1 && star.children[0].id == 'fruit');
+                // hexagon_correct = (hexagon.children.length == 1 && hexagon.children[0].id == 'pencil');
+                if (circle_correct && triangle_correct && rect_correct && star_correct && hexagon_correct
+                    && pi6_correct && pi7_correct && pi8_correct && pi9_correct && pi10_correct && pi11_correct && pi12_correct 
+                    && pi13_correct && pi14_correct && pi15_correct && pi16_correct && pi17_correct 
+                    && pip1_correct && pip2_correct && pip3_correct && pip4_correct) {
+                    p4correct = true;
+                    post4.style.display = "block";
+                    alert("Yay - something just fell from the ceiling!");
+                    alert("1");
+                    pocket_limit = 12;
+                } 
+                else alert("Nay");
+            }
+        }
+
+        // PICTURE HERE
+        function p5() {
+            // assume puzzle 4 items are still in the puzzle ik it's weird
+            if (p1correct && p2correct && p3correct && p4correct) {
+                if (pocket_bitmap.get(ip1) == "block"
+                    && pocket_bitmap.get(ip2) == "block"
+                    && pocket_bitmap.get(ip3) == "block"
+                    && pocket_bitmap.get(ip4) == "block"
+                    && pocket_bitmap.get(i6) == "none"
+                    && pocket_bitmap.get(i7) == "none"
+                    && pocket_bitmap.get(i8) == "none"
+                    && pocket_bitmap.get(i9) == "none"
+                    && pocket_bitmap.get(i10) == "none"
+                    && pocket_bitmap.get(i11) == "none"
+                    && pocket_bitmap.get(i12) == "none"
+                    && pocket_bitmap.get(i13) == "none"
+                    && pocket_bitmap.get(i14) == "none"
+                    && pocket_bitmap.get(i15) == "none"
+                    && pocket_bitmap.get(i16) == "none"
+                    && pocket_bitmap.get(i17) == "none") {
+                        puzzle5.style.display = "block";
+                } else {
+                    alert("Some items are more special than others. Only take what you need, and exactly what you need.");
+                }
+            } else {
+                alert("This may be important later");
+            }
+        }
+        var p5correct = false;
+        function puzzle5q() {
+            if (p5correct) alert("No use coming back here");
+            else {
+                var ice = document.getElementById("ice").value;
+                var tea = document.getElementById("tea").value;
+                var sugar = document.getElementById("sugar").value;
+                var lemon = document.getElementById("lemon").value;
+                
+                if (ice != 2 || tea != 4 || sugar != 1 || lemon != 1){
+                    alert("Your recipe is subpar.");
+                } else {
+                    p5correct = true;
+                    alert("You hear a click. What could it be?");
+                }
+            }
+        }
+
+        function door() {
+            if (p5correct) { // finished the room
+                alert("A booming voice announces that you have been deemed worthy.");
+            }
+        }
+
+        // PICTURE HERE
+
+        //Make the element draggable:
+        dragElement(document.getElementById("ppocket_cup"));
+        dragElement(document.getElementById("ppocket_pizza"));
+        dragElement(document.getElementById("ppocket_book"));
+        dragElement(document.getElementById("ppocket_fruit"));
+        dragElement(document.getElementById("ppocket_pencil"));
+        dragElement(document.getElementById("pi6"));
+        dragElement(document.getElementById("pi7"));
+        dragElement(document.getElementById("pi8"));
+        dragElement(document.getElementById("pi9"));
+        dragElement(document.getElementById("pi10"));
+        dragElement(document.getElementById("pi11"));
+        dragElement(document.getElementById("pi12"));
+        dragElement(document.getElementById("pi13"));
+        dragElement(document.getElementById("pi14"));
+        dragElement(document.getElementById("pi15"));
+        dragElement(document.getElementById("pi16"));
+        dragElement(document.getElementById("pi17"));
+        dragElement(document.getElementById("pip1"));
+        dragElement(document.getElementById("pip2"));
+        dragElement(document.getElementById("pip3"));
+        dragElement(document.getElementById("pip4"));
+        
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                /* stop moving when mouse button is released:*/
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+        var modals = [modalStory, pockets, puzzle1, puzzle2, puzzle3, puzzle4, puzzle5];
+        window.onclick = function(event) {
+            if (modals.includes(event.target)) {
+                modalStory.style.display = "none";
+                pockets.style.display = "none";
+                puzzle1.style.display = "none";
+                puzzle2.style.display = "none";
+                puzzle3.style.display = "none";
+                puzzle4.style.display = "none";
+                puzzle5.style.display = "none";
+            }
+        }
+
+        document.oncontextmenu = rightclick;
+        function rightclick(e){
+            e.preventDefault();
+        }
+
+        // PICTURE HERE
+
+        //                   str_room   id_room id_pock         id_puzz
+        var map = new Map([ ['cup',    [cup,    pocket_cup,     ppocket_cup]], 
+                            ['pizza',  [pizza,  pocket_pizza,   ppocket_pizza]], 
+                            ['book',   [book,   pocket_book,    ppocket_book]], 
+                            ['fruit',  [fruit,  pocket_fruit,   ppocket_fruit]], 
+                            ['pencil', [pencil, pocket_pencil,  ppocket_pencil]], 
+                            ['test6',  [test6,  i6,             pi6]], 
+                            ['test7',  [test7,  i7,             pi7]], 
+                            ['test8',  [test8,  i8,             pi8]],
+                            ['test9',  [test9,  i9,             pi9]],
+                            ['test10', [test10, i10,            pi10]],
+                            ['test11', [test11, i11,            pi11]],
+                            ['test12', [test12, i12,            pi12]],
+                            ['test13', [test13, i13,            pi13]],
+                            ['test14', [test14, i14,            pi14]],
+                            ['test15', [test15, i15,            pi15]],
+                            ['test16', [test16, i16,            pi16]],
+                            ['test17', [test17, i17,            pi17]],
+                            ['post1',  [post1,  ip1,            pip1]],
+                            ['post2',  [post2,  ip2,            pip2]],
+                            ['post3',  [post3,  ip3,            pip3]],
+                            ['post4',  [post4,  ip4,            pip4]] ]);
+
+        //                          str_pock            id_pock         id_room id_puzz
+        var map_pocket = new Map([  ['pocket_cup',      [pocket_cup,    cup,    ppocket_cup]], 
+                                    ['pocket_pizza',    [pocket_pizza,  pizza,  ppocket_pizza]], 
+                                    ['pocket_book',     [pocket_book,   book,   ppocket_book]], 
+                                    ['pocket_fruit',    [pocket_fruit,  fruit,  ppocket_fruit]], 
+                                    ['pocket_pencil',   [pocket_pencil, pencil, ppocket_pencil]], 
+                                    ['i6',              [i6,            test6,  pi6]], 
+                                    ['i7',              [i7,            test7,  pi7]], 
+                                    ['i8',              [i8,            test8,  pi8]], 
+                                    ['i9',              [i9,            test9,  pi9]], 
+                                    ['i10',             [i10,           test10, pi10]], 
+                                    ['i11',             [i11,           test11, pi11]],
+                                    ['i12',             [i12,           test12, pi12]],
+                                    ['i13',             [i13,           test13, pi13]],
+                                    ['i14',             [i14,           test14, pi14]],
+                                    ['i15',             [i15,           test15, pi15]],
+                                    ['i16',             [i16,           test16, pi16]],
+                                    ['i17',             [i17,           test17, pi17]],
+                                    ['ip1',             [ip1,           post1,  pip1]], 
+                                    ['ip2',             [ip2,           post2,  pip2]],
+                                    ['ip3',             [ip3,           post3,  pip3]],
+                                    ['ip4',             [ip4,           post4,  pip4]] ]);
+
+        var pocket_bitmap = new Map([ [pocket_cup,'none'], [pocket_pizza,'none'], [pocket_book,'none'], [pocket_fruit,'none'], 
+                                        [pocket_pencil,'none'], [i6,'none'], [i7,'none'], [i8,'none'], 
+                                        [i9,'none'], [i10,'none'], [i11,'none'], [i12,'none'], 
+                                        [i13,'none'], [i14,'none'], [i15,'none'], [i16,'none'], [i17,'none'], 
+                                        [ip1,'none'], [ip2,'none'], [ip3,'none'], [ip4,'none'] ]); 
+        
+        var first_pocket = true;
+        var count = 0;
+        var pocket_limit = 6;
+
+        function pickup(what) {
+            count = 0;
+            for (const value of pocket_bitmap.values()){ if (value == 'block') { count += 1; } }
+            if (first_pocket) { 
+                alert('A is for Apples, B is for Bananas, ... "P" is for Pockets'); 
+                first_pocket = false; 
+                yahaha.style.display = "none";
+            }
+            if (count < pocket_limit) {
+                var id_room = map.get(what)[0];
+                var id_pock = map.get(what)[1];
+                var id_puzz = map.get(what)[2];
+                id_room.style.display = "none";
+                pocket_bitmap.set(id_pock, "block");
+                id_pock.style.display = "inline-block";
+                id_puzz.style.display = "inline-block";
+            } else {
+                alert("You're carrying too many things.");
+            }
+        }
+
+        function remove(what) {
+            var id_pock = map_pocket.get(what)[0];
+            var id_room = map_pocket.get(what)[1];
+            var id_puzz = map_pocket.get(what)[2];
+            id_pock.style.display = "none";
+            id_puzz.style.display = "none";
+            pocket_bitmap.set(id_pock, "none");
+            id_room.style.display = "block";
+        }
+
+        var discovered_pocket = false;
+        document.onkeypress = key_alert;
+        function key_alert(e) {
+            if (`${e.code}` == "KeyP") {
+                pockets.style.display = "block";
+                discovered_pocket = true;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+    
